@@ -23,8 +23,7 @@ class FileParsingTest {
     @Test
     void readAndCheckPdfFromZipTest() throws Exception {
 
-        try (InputStream is = cl.getResourceAsStream("Lesson_9.zip");
-             ZipInputStream zs = new ZipInputStream(is)) {
+        try (InputStream is = cl.getResourceAsStream("Lesson_9.zip"); ZipInputStream zs = new ZipInputStream(is)) {
             ZipEntry entry;
             boolean found = false;
             while ((entry = zs.getNextEntry()) != null) {
@@ -44,8 +43,7 @@ class FileParsingTest {
     @Test
     void readAndCheckCSVFromZipTest() throws Exception {
 
-        try (InputStream is = cl.getResourceAsStream("Lesson_9.zip");
-             ZipInputStream zs = new ZipInputStream(is)) {
+        try (InputStream is = cl.getResourceAsStream("Lesson_9.zip"); ZipInputStream zs = new ZipInputStream(is)) {
             ZipEntry entry;
             boolean found = false;
             while ((entry = zs.getNextEntry()) != null) {
@@ -65,8 +63,7 @@ class FileParsingTest {
     @Test
     void readAndCheckXlsxFromZipTest() throws Exception {
 
-        try (InputStream is = cl.getResourceAsStream("Lesson_9.zip");
-             ZipInputStream zs = new ZipInputStream(is)) {
+        try (InputStream is = cl.getResourceAsStream("Lesson_9.zip"); ZipInputStream zs = new ZipInputStream(is)) {
             ZipEntry entry;
             boolean found = false;
             while ((entry = zs.getNextEntry()) != null) {
@@ -85,8 +82,7 @@ class FileParsingTest {
     @Test
     void parsingJSONGSONTest() throws Exception {
         Gson gson = new Gson();
-        try (InputStream is = cl.getResourceAsStream("human.json");
-             InputStreamReader isr = new InputStreamReader(is)) {
+        try (InputStream is = cl.getResourceAsStream("human.json"); InputStreamReader isr = new InputStreamReader(is)) {
             JsonObject jsonObject = gson.fromJson(isr, JsonObject.class);
             Assertions.assertTrue(jsonObject.get("isClever").getAsBoolean());
             Assertions.assertEquals(37, jsonObject.get("age").getAsInt());
@@ -96,8 +92,7 @@ class FileParsingTest {
     @Test
     void parsingJSONJacksonTest() throws Exception {
         Gson gson = new Gson();
-        try (InputStream is = cl.getResourceAsStream("human.json");
-             InputStreamReader isr = new InputStreamReader(is)) {
+        try (InputStream is = cl.getResourceAsStream("human.json"); InputStreamReader isr = new InputStreamReader(is)) {
             Human human = gson.fromJson(isr, Human.class);
             Assertions.assertTrue(human.isClever);
             Assertions.assertEquals(37, human.age);

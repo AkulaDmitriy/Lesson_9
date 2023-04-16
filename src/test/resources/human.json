@@ -2,7 +2,10 @@
   "name": "Dima",
   "age": "37",
   "isClever": "true",
-  "hobbies": ["Reading","Running"],
+  "hobbies": [
+    "Reading",
+    "Running"
+  ],
   "passport": {
     "number": 555555,
     "creationDate": "15 DEC 2022"

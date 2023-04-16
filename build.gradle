@@ -1,4 +1,3 @@
-
 plugins {
     id 'java'
 }
@@ -11,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation (
+    testImplementation(
             'org.junit.jupiter:junit-jupiter:5.9.2',
             'com.codeborne:selenide:6.12.4',
             'com.codeborne:pdf-test:1.5.0',
