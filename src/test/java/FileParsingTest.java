@@ -1,5 +1,8 @@
 import com.codeborne.xlstest.XLS;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.opencsv.CSVReader;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import com.codeborne.pdftest.PDF;
@@ -13,9 +16,9 @@ import java.util.zip.ZipInputStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class workingWithFileTest {
+class FileParsingTest {
 
-    private ClassLoader cl = workingWithFileTest.class.getClassLoader();
+    private ClassLoader cl = FileParsingTest.class.getClassLoader();
 
     @Test
     void readAndCheckPdfFromZipTest() throws Exception {
@@ -37,6 +40,7 @@ class workingWithFileTest {
             }
         }
     }
+
     @Test
     void readAndCheckCSVFromZipTest() throws Exception {
 
@@ -49,7 +53,7 @@ class workingWithFileTest {
                     found = true;
                     CSVReader csvReader = new CSVReader(new InputStreamReader(zs));
                     List<String[]> content = csvReader.readAll();
-                    Assertions.assertArrayEquals(new String[]{"Source value 1","Source value 2","Target value"}, content.get(0));
+                    Assertions.assertArrayEquals(new String[]{"Source value 1", "Source value 2", "Target value"}, content.get(0));
                 }
             }
             if (!found) {
@@ -75,6 +79,28 @@ class workingWithFileTest {
             if (!found) {
                 Assertions.fail("File not found");
             }
+        }
+    }
+
+    @Test
+    void parsingJSONGSONTest() throws Exception {
+        Gson gson = new Gson();
+        try (InputStream is = cl.getResourceAsStream("human.json");
+             InputStreamReader isr = new InputStreamReader(is)) {
+            JsonObject jsonObject = gson.fromJson(isr, JsonObject.class);
+            Assertions.assertTrue(jsonObject.get("isClever").getAsBoolean());
+            Assertions.assertEquals(37, jsonObject.get("age").getAsInt());
+        }
+    }
+
+    @Test
+    void parsingJSONJacksonTest() throws Exception {
+        Gson gson = new Gson();
+        try (InputStream is = cl.getResourceAsStream("human.json");
+             InputStreamReader isr = new InputStreamReader(is)) {
+            Human human = gson.fromJson(isr, Human.class);
+            Assertions.assertTrue(human.isClever);
+            Assertions.assertEquals(37, human.age);
         }
     }
 }
